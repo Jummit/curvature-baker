@@ -21,16 +21,16 @@ func bake_curvature_map(mesh : Mesh, line_thickness := 0.03, surface := 0) -> Im
 			continue
 		var a := mesh_tool.get_edge_vertex(edge, 0)
 		var b := mesh_tool.get_edge_vertex(edge, 1)
-		for v in join_data.original_ids[a]:
-			for e in old_mesh_tool.get_vertex_edges(v):
+		for a_id in join_data.original_ids[a]:
+			for a_edge in old_mesh_tool.get_vertex_edges(a_id):
 				var egde_verts := [
-					old_mesh_tool.get_edge_vertex(e, 0),
-					old_mesh_tool.get_edge_vertex(e, 1),
+					old_mesh_tool.get_edge_vertex(a_edge, 0),
+					old_mesh_tool.get_edge_vertex(a_edge, 1),
 				]
-				for ov in join_data.original_ids[b]:
-					if ov in egde_verts:
-						lines.append(old_mesh_tool.get_vertex_uv(v))
-						lines.append(old_mesh_tool.get_vertex_uv(ov))
+				for other_id in join_data.original_ids[b]:
+					if other_id in egde_verts:
+						lines.append(old_mesh_tool.get_vertex_uv(a_id))
+						lines.append(old_mesh_tool.get_vertex_uv(other_id))
 						colors.append(_grayscale((curvature + 1) / 2.0))
 	
 	var result = line_renderer.render_lines(lines, colors, Vector2(1024, 1024),
