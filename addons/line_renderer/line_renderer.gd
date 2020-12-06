@@ -16,7 +16,7 @@ func render_lines(lines : PoolVector2Array, colors : PoolColorArray,
 		line_rect.material.shader = preload("line.shader")
 		line_rect.material.set_shader_param("a", lines[line])
 		line_rect.material.set_shader_param("b", lines[line + 1])
-		line_rect.material.set_shader_param("col", colors[line / 2])
+		line_rect.material.set_shader_param("col", colors[line / 2.0])
 		line_rect.material.set_shader_param("size", thickness)
 		add_child(line_rect)
 	

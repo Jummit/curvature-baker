@@ -38,7 +38,6 @@ static func join_duplicates(mesh : Mesh) -> Dictionary:
 		original_ids[current_id].append(vertex.id)
 		new_ids[vertex.id] = current_id
 	
-	var last_face_id := 0
 	for face in data_tool.get_face_count():
 		for v in [
 				data_tool.get_face_vertex(face, 0),
