@@ -5,7 +5,8 @@ onready var line_renderer : Viewport = $LineRenderer
 const CurvatureUtils := preload("curvature_utils.gd")
 const MeshUtils := preload("mesh_utils.gd")
 
-func bake_curvature_map(mesh : Mesh, line_thickness := 0.03, surface := 0) -> ImageTexture:
+func bake_curvature_map(mesh : Mesh, result_size : Vector2,
+		line_thickness := 0.03, surface := 0) -> ImageTexture:
 	var mesh_tool := MeshDataTool.new()
 	var join_data := MeshUtils.join_duplicates(mesh)
 	mesh_tool.create_from_surface(join_data.mesh, surface)
@@ -33,7 +34,7 @@ func bake_curvature_map(mesh : Mesh, line_thickness := 0.03, surface := 0) -> Im
 						lines.append(old_mesh_tool.get_vertex_uv(other_id))
 						colors.append(_grayscale((curvature + 1) / 2.0))
 	
-	var result = line_renderer.render_lines(lines, colors, Vector2(1024, 1024),
+	var result = line_renderer.render_lines(lines, colors, result_size,
 			line_thickness, _grayscale(.5))
 	if result is GDScriptFunctionState:
 		result = yield(result, "completed")
