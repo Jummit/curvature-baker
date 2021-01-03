@@ -1,5 +1,9 @@
 extends Viewport
 
+"""
+`Viewport` that renders a set of smooth colored lines using shaders
+"""
+
 onready var background_rect : ColorRect = $BackgroundRect
 
 func render_lines(lines : PoolVector2Array, colors : PoolColorArray,

@@ -1,5 +1,9 @@
 extends Node
 
+"""
+A utility that bakes grayscale curvature maps from a mesh
+"""
+
 onready var line_renderer : Viewport = $LineRenderer
 
 const CurvatureUtils := preload("curvature_utils.gd")
