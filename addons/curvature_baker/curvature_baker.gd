@@ -10,7 +10,7 @@ const CurvatureUtils := preload("curvature_utils.gd")
 const MeshUtils := preload("mesh_utils.gd")
 
 func bake_curvature_map(mesh : Mesh, result_size : Vector2,
-		line_thickness := 0.03, surface := 0) -> ImageTexture:
+		surface := 0) -> ImageTexture:
 	var mesh_tool := MeshDataTool.new()
 	var join_data := MeshUtils.join_duplicates(mesh)
 	mesh_tool.create_from_surface(join_data.mesh, surface)
@@ -39,7 +39,7 @@ func bake_curvature_map(mesh : Mesh, result_size : Vector2,
 						colors.append(_grayscale((curvature + 1) / 2.0))
 	
 	var result = line_renderer.render_lines(lines, colors, result_size,
-			line_thickness, _grayscale(.5))
+			MeshUtils.get_texel_density(mesh) / 500.0, _grayscale(.5))
 	if result is GDScriptFunctionState:
 		result = yield(result, "completed")
 	return result

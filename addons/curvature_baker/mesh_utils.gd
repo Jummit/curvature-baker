@@ -48,3 +48,13 @@ static func join_duplicates(mesh : Mesh) -> Dictionary:
 	return {
 			mesh = surface_tool.commit(),
 			original_ids = original_ids}
+
+
+static func get_texel_density(mesh : Mesh) -> float:
+	var data_tool := MeshDataTool.new()
+	data_tool.create_from_surface(mesh, 0)
+	var v1 := data_tool.get_edge_vertex(0, 0)
+	var v2 := data_tool.get_edge_vertex(0, 1)
+	var world_length := data_tool.get_vertex(v1).distance_to(data_tool.get_vertex(v2))
+	var texture_length := data_tool.get_vertex_uv(v1).distance_to(data_tool.get_vertex_uv(v2))
+	return world_length / texture_length
