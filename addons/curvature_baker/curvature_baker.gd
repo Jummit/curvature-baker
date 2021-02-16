@@ -13,7 +13,7 @@ func bake_curvature_map(mesh : Mesh, result_size : Vector2,
 		surface := 0) -> ImageTexture:
 	var mesh_tool := MeshDataTool.new()
 	var join_data := MeshUtils.join_duplicates(mesh, surface)
-	mesh_tool.create_from_surface(join_data.mesh, surface)
+	mesh_tool.create_from_surface(join_data.mesh, 0)
 	var edge_curvatures = CurvatureUtils.get_edge_curvatures(mesh_tool)
 	var lines : PoolVector2Array = []
 	var colors : PoolColorArray = []
