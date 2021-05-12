@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://addons/line_renderer/line_renderer.gd" type="Script" id=1]
+[ext_resource path="line_renderer.gd" type="Script" id=1]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4

@@ -7,7 +7,7 @@ A utility that bakes grayscale curvature maps from a mesh
 onready var line_renderer : Viewport = $LineRenderer
 
 const CurvatureUtils := preload("curvature_utils.gd")
-const MeshUtils = preload("res://addons/mesh_utils/mesh_utils.gd")
+var MeshUtils = load("../mesh_utils/mesh_utils.gd")
 
 func bake_curvature_map(mesh : Mesh, result_size : Vector2,
 		surface := 0) -> ImageTexture:
