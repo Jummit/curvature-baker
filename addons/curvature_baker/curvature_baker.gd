@@ -7,12 +7,11 @@ A utility that bakes grayscale curvature maps from a mesh
 onready var line_renderer : Viewport = $LineRenderer
 
 const CurvatureUtils := preload("curvature_utils.gd")
-var MeshUtils = load("../mesh_utils/mesh_utils.gd")
 
 func bake_curvature_map(mesh : Mesh, result_size : Vector2,
 		surface := 0) -> ImageTexture:
 	var mesh_tool := MeshDataTool.new()
-	var join_data := MeshUtils.join_duplicates(mesh, surface)
+	var join_data : Dictionary = load("../mesh_utils/mesh_utils.gd").join_duplicates(mesh, surface)
 	mesh_tool.create_from_surface(join_data.mesh, 0)
 	var edge_curvatures = CurvatureUtils.get_edge_curvatures(mesh_tool)
 	var lines : PoolVector2Array = []
@@ -39,7 +38,7 @@ func bake_curvature_map(mesh : Mesh, result_size : Vector2,
 						colors.append(_grayscale((curvature + 1) / 2.0))
 	
 	var result = line_renderer.render_lines(lines, colors, result_size,
-			MeshUtils.get_texel_density(mesh) / 500.0, _grayscale(.5))
+			load("../mesh_utils/mesh_utils.gd").get_texel_density(mesh) / 500.0, _grayscale(.5))
 	if result is GDScriptFunctionState:
 		result = yield(result, "completed")
 	return result
