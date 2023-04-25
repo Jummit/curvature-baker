@@ -10,11 +10,11 @@ Instantiate the `curvature_baker.tscn` scene and call the `bake_curvature_map` f
 
 **The model with the curvature map applied:**
 
-![model](results/model.jpg)
+![model](images/model.jpg)
 
 **The baked curvature texture:**
 
-![texture](results/curvature_map.png)
+![texture](images/curvature_map.png)
 
 ## Issues
 
