@@ -1,10 +1,10 @@
-# Curvature Baker
+# Curvature Baker ![Godot v4.0.2](https://img.shields.io/badge/Godot-v4.0.2-%23478cbf) ![GitHub](https://img.shields.io/github/license/Jummit/curvature-baker)
 
 Utility addon that bakes grayscale curvature maps from a mesh.
 
 ## Usage
 
-Instanciate the `curvature_baker.tscn` scene and call the `bake_curvature_map` function on it. It takes a mesh, the line thickness and the surface to be used.
+Instantiate the `curvature_baker.tscn` scene and call the `bake_curvature_map` function on it. It takes a mesh, the line thickness and the surface to be used.
 
 ## Results
 
@@ -14,7 +14,7 @@ Instanciate the `curvature_baker.tscn` scene and call the `bake_curvature_map` f
 
 **The baked curvature texture:**
 
-![texture](results/texture.png)
+![texture](results/curvature_map.png)
 
 ## Issues
 

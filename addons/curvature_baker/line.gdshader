@@ -2,7 +2,7 @@ shader_type canvas_item;
 
 uniform vec2 a;
 uniform vec2 b;
-uniform vec4 col : hint_color = vec4(1.0);
+uniform vec4 col = vec4(1.0);
 uniform float size = 0.05;
 
 void fragment() {

@@ -1,21 +1,28 @@
+class_name CurvatureBaker
 extends Node
 
-"""
-A utility that bakes grayscale curvature maps from a mesh
-"""
+## Utility for baking grayscale curvature maps from a mesh.
 
-onready var line_renderer : Viewport = $LineRenderer
+@onready var _line_renderer : SubViewport = $LineRenderer
 
-const CurvatureUtils := preload("curvature_utils.gd")
+const _CurvatureUtils = preload("curvature_utils.gd")
+const _MeshUtils = preload("mesh_utils.gd")
 
-func bake_curvature_map(mesh : Mesh, result_size : Vector2,
-		surface := 0) -> ImageTexture:
+## The returned texture is a [ViewportTexture], so it has will change
+## on further calls to [method bake_curvature_map]. Create a copy to
+## avoid this:
+## [br]
+## [codeblock]
+##     var texture := ImageTexture.create_from_image(result.get_image()
+## [/codeblock]
+func bake_curvature_map(mesh : Mesh, result_size := Vector2(1024, 1024),
+		surface := 0) -> Texture:
 	var mesh_tool := MeshDataTool.new()
-	var join_data : Dictionary = load("../mesh_utils/mesh_utils.gd").join_duplicates(mesh, surface)
+	var join_data : Dictionary = _MeshUtils.join_duplicates(mesh, surface)
 	mesh_tool.create_from_surface(join_data.mesh, 0)
-	var edge_curvatures = CurvatureUtils.get_edge_curvatures(mesh_tool)
-	var lines : PoolVector2Array = []
-	var colors : PoolColorArray = []
+	var edge_curvatures = _CurvatureUtils.get_edge_curvatures(mesh_tool)
+	var lines : PackedVector2Array = []
+	var colors : PackedColorArray = []
 	
 	var old_mesh_tool := MeshDataTool.new()
 	old_mesh_tool.create_from_surface(mesh, surface)
@@ -37,10 +44,8 @@ func bake_curvature_map(mesh : Mesh, result_size : Vector2,
 						lines.append(old_mesh_tool.get_vertex_uv(other_id))
 						colors.append(_grayscale((curvature + 1) / 2.0))
 	
-	var result = line_renderer.render_lines(lines, colors, result_size,
-			load("../mesh_utils/mesh_utils.gd").get_texel_density(mesh) / 500.0, _grayscale(.5))
-	if result is GDScriptFunctionState:
-		result = yield(result, "completed")
+	var result = await _line_renderer.render_lines(lines, colors, result_size,
+			_MeshUtils.get_texel_density(mesh) / 500.0, _grayscale(.5))
 	return result
 
 
