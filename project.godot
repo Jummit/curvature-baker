@@ -22,7 +22,7 @@ window/subwindows/embed_subwindows=false
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/curvature_bake/plugin.cfg", "res://addons/curvature_baker/plugin.cfg")
+enabled=PackedStringArray("res://addons/curvature_baker/plugin.cfg")
 
 [rendering]
 
